@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,minimum-scale=1,maximum-scale=1">
+</head>
+<body>
+<div class="main">
+  <div id="game">
+    <div id="phaser_player"></div>
+  </div>
+</div>
+<script>
+  (function (w, d) {
+    if ((/vkdev=1/.test(w.location) || w.localStorage.getItem('vkdev'))) {
+      var s = d.createElement('script');
+      s.src = './static/lib/vconsole.min.js';
+      s.setAttribute('charset', 'UTF-8');
+      d.head.appendChild(s);
+      s.onload = function () {
+        new VConsole();
+      }
+    }
+
+    if ((/stats=1/.test(w.location) || w.localStorage.getItem('stats'))) {
+      var s = d.createElement('script');
+      s.src = './static/lib/stats.min.js';
+      s.setAttribute('charset', 'UTF-8');
+      d.head.appendChild(s);
+      s.onload = function () {
+        var stats = new Stats();
+        document.body.appendChild(stats.domElement);
+        stats.domElement.style.position = 'absolute'
+        stats.domElement.style.top = '0'
+        stats.domElement.style.right = '0'
+        stats.domElement.style.zIndex = '99'
+
+        function animate() {
+          requestAnimationFrame(animate);
+
+          if (stats) stats.update();
+        };
+        animate();
+      }
+    }
+  }(window, document))
+</script>
+<script src="./static/lib/phaser/phaser-3.19.0.min.js"></script>
+<script src="./static/lib/puremvc/puremvc-1.0.1.js"></script>
+<script src="./static/lib/TweenMax.min.js"></script>
+</body>
+</html>
