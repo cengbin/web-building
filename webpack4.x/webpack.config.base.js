@@ -57,10 +57,6 @@ module.exports = {
           name: path.posix.join('./', 'img/[name].[hash:7].[ext]'),
           publicPath: './'
         }
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
       }
     ]
   }

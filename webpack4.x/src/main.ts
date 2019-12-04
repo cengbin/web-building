@@ -1,15 +1,20 @@
 import './assets/style.css'
-
 import Game from './Game'
+import {default as variable} from './res.json'
+// let conf = require('./res.json')
+
+// console.log(conf)
+console.log(variable)
+
 let game = new Game({
-    type: Phaser.AUTO,
-    transparent: true,
-    autoFocus: true,
-    scale: {
-        mode: Phaser.Scale.FIT,
-        parent: "phaser_player",
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    }
+  type: Phaser.AUTO,
+  transparent: true,
+  autoFocus: true,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    parent: "phaser_player",
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  }
 })
 
 /// <reference path="Validation.ts" />

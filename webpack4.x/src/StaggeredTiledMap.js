@@ -1,4 +1,7 @@
 import RhombusNode from './RhombusNode'
+import conf2 from './res.json'
+
+console.log(conf2)
 
 export default class StaggeredTiledMap extends Phaser.GameObjects.Container {
   constructor (scene) {
