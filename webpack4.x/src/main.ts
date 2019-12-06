@@ -9,6 +9,9 @@ console.log(variable)
 let game = new Game({
   type: Phaser.AUTO,
   transparent: true,
+  backgroundColor: 0x1099bb,
+  width: 800,
+  height: 600,
   autoFocus: true,
   scale: {
     mode: Phaser.Scale.FIT,
