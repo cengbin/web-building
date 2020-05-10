@@ -1,5 +1,9 @@
+import {Application, Graphics} from 'pixi.js';
+
+console.log(Application, Graphics);
+
 export default class RhombusNode extends Phaser.GameObjects.Container {
-  constructor (scene, row, col, w, h) {
+  constructor(scene, row, col, w, h) {
     super(scene, 0, 0)
 
     this.y = row * h / 2

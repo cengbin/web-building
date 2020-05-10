@@ -1,23 +1,14 @@
 import './assets/style.css'
 import Game from './Game'
-import {default as variable} from './res.json'
+import {default as conf} from './res.json'
 // let conf = require('./res.json')
-
-// console.log(conf)
-console.log(variable)
+console.log(conf, 1, 2)
 
 let game = new Game({
-  type: Phaser.AUTO,
-  transparent: true,
-  backgroundColor: 0x1099bb,
+  view: document.getElementById('pixi_canvas'),
   width: 800,
   height: 600,
-  autoFocus: true,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    parent: "phaser_player",
-    autoCenter: Phaser.Scale.CENTER_BOTH
-  }
+  backgroundColor: 0x1099bb
 })
 
 /// <reference path="Validation.ts" />

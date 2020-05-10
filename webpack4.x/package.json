@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dll": "webpack --config webpack.config.dll.js --mode=development",
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.build.js"
   },
@@ -26,6 +27,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "file-loader": "^4.0.0",
+    "happypack": "^5.0.1",
     "html-webpack-plugin": "^3.2.0",
     "json-loader": "^0.5.7",
     "style-loader": "^0.23.1",
@@ -38,7 +40,6 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "phaser": "^3.18.0",
     "pixi.js": "^4.5.0"
   }
 }

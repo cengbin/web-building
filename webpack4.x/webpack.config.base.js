@@ -1,4 +1,10 @@
 const path = require('path')
+const webpack = require('webpack')
+const HappyPack = require('happypack')
+
+function resolve(to) {
+  return path.resolve(__dirname, to)
+}
 
 module.exports = {
   entry: {
@@ -22,18 +28,20 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: [path.resolve(__dirname, 'src')],
+        include: [resolve('src')],// 只在src文件夹下查找
+        exclude: /node_modules/,// 不去查找的文件夹路径，node_modules下的代码是编译过得，没必要再去处理一遍
         options: {
           formatter: require('eslint-friendly-formatter')
         }
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'happypack/loader?id=happybabel',
         include: [
-          path.resolve(__dirname, "src"),
-          path.resolve(__dirname, "node_modules/pixi.js")
-        ]
+          resolve('src'),
+          resolve("node_modules/pixi.js")
+        ],
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -59,5 +67,18 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new HappyPack({
+      id: 'happybabel',
+      loaders: ['babel-loader?cacheDirectory=true'],
+      threads: 4,
+      //允许 HappyPack 输出日志
+      verbose: true
+    }),
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('./static/vendor-manifest.json') //此即打包出来的json文件
+    })
+  ]
 }

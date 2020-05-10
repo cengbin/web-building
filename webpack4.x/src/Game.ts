@@ -1,16 +1,19 @@
-// import MainScene from "./MainScene";
-import StartScene from "./StartScene";
+// import {Application, Graphics} from 'pixi.js';
+const PIXI = require('pixi.js');
 
-export class Game extends Phaser.Game {
+export default class Game extends PIXI.Application {
 
-  constructor(config: Phaser.Types.Core.GameConfig) {
+  constructor(config) {
     super(config)
   }
 
-  protected start() {
+  start() {
     super.start()
-    this.scene.add(StartScene.NAME, StartScene, true)
+
+    var react = new PIXI.Graphics()
+    react.beginFill(0xff0000)
+    react.drawRect(0, 0, 100, 100)
+    react.endFill()
+    this.stage.addChild(react)
   }
 }
-export default Game
-
