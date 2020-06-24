@@ -13,7 +13,8 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     publicPath: '/',
-    filename: '[name].js'
+    filename: '[name].js', // 入口文件打包出来的文件名
+    chunkFilename: '[name].[id].[hash:7].bundle.js', // 动态加载模块打包出来的文件名
   },
   resolve: {
     extensions: ['.js', '.ts', '.json']

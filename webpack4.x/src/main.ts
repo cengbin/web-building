@@ -11,6 +11,14 @@ let game = new Game({
   backgroundColor: 0x1099bb
 })
 
+setTimeout(() => {
+  import(/* webpackChunkName: "util" */'./util.js').then(({default: _}) => {
+    console.log(_)
+  }).catch(error => {
+    console.log(error)
+  });
+}, 1000)
+
 /// <reference path="Validation.ts" />
 
 /*
