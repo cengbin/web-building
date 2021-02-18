@@ -1,0 +1,68 @@
+const fs = require('fs');
+const {series, parallel} = require('gulp');
+const {src, dest} = require('gulp');
+const {watch} = require('gulp');
+// const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
+const rename = require('gulp-rename');
+const del = require('delete');
+
+
+async function start () {
+  const packageConfig = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  console.log(packageConfig);
+}
+
+function clean (cb) {
+  del(['output/*.js'], cb);
+}
+
+function css (cb) {
+  // body omitted
+  cb();
+}
+
+async function javascript () {
+  return src('src/*.js')
+  // .pipe(babel())
+    .pipe(src('vendor/*.js'))
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(dest('output/'));
+
+  await Promise.resolve('some result');
+}
+
+function minify (cb) {
+  // body omitted
+  cb();
+}
+
+
+function transpile (cb) {
+  // body omitted
+  cb();
+}
+
+function livereload (cb) {
+  // body omitted
+  cb();
+}
+
+console.log('process.env.NODE_ENV:', process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'production') {
+  exports.build = series(transpile, minify);
+} else {
+  // 关联的任务（task）将在启动时执行
+  watch('src/*.js', {ignoreInitial: false}, function (cb) {
+    // body omitted
+
+    console.log('change file')
+
+    // parallel(css, javascript)
+
+    cb();
+  });
+
+  exports.build = series(start, clean, parallel(css, javascript), transpile, livereload);
+}
