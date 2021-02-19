@@ -1,4 +1,4 @@
-import './assets/style.css'
+/*import './assets/style.css'
 import Game from './Game'
 import {default as conf} from './res.json'
 // let conf = require('./res.json')
@@ -11,17 +11,9 @@ let game = new Game({
   backgroundColor: 0x1099bb
 })
 
-setTimeout(() => {
-  import(/* webpackChunkName: "util" */'./util.js').then(({default: _}) => {
-    console.log(_)
-  }).catch(error => {
-    console.log(error)
-  });
-}, 1000)
-
 /// <reference path="Validation.ts" />
 
-/*
+/!*
 // Some samples to try
 let strings = ["Hello", "98052", "101"];
 
@@ -35,4 +27,16 @@ for (let s of strings) {
   for (let name in validators) {
     console.log(`"${ s }" - ${ validators[name].isAcceptable(s) ? "matches" : "does not match" } ${ name }`);
   }
-}*/
+}*!/*/
+import util from './util'
+
+console.log(util('123', '123'))
+
+/*
+setTimeout(() => {
+  import(/!* webpackChunkName: "jquery" *!/'./jquery.js').then(({default: $}) => {
+    console.log($)
+  }).catch(error => {
+    console.log(error)
+  });
+}, 1000)*/

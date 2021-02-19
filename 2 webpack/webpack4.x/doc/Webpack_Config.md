@@ -1,6 +1,6 @@
-# webpack4.x demo
+# webpack4.x 基础配置
 
-webpack 特性
+> ES6 + eslint + TypeScript +PixiJS 构建项目Demo
 
 `npm install --save-dev webpack webpack-cli webpack-dev-server`
 
@@ -17,7 +17,9 @@ webpack.config.js 配置参数
 
 ```js
 module.exports = {
+  // 入口配置
   entry: './src/main.js',
+  // 出口配置
   output: {
     path: __dirname + '/dist',
     publicPath: '/',
@@ -55,6 +57,7 @@ module.exports = {
       }
     ])
   ],
+ 
   module: {
     rules: [
       {

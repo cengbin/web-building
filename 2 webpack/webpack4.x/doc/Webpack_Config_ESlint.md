@@ -32,6 +32,8 @@
 
 * 3.在项目工程中，新建一个.eslintrc配置文件，内容如下
 
+[配置文件介绍](https://gist.github.com/rswanderer/29dc65efc421b3b5b0442f1bd3dcd046)
+
 ```js
 // https://eslint.org/docs/user-guide/configuring
 module.exports = {
