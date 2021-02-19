@@ -5,19 +5,20 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.config.base')
 
-module.exports = merge(baseWebpackConfig,{
-  mode: 'development', // 'production'
-  devtool:'#source-map',
+module.exports = merge(baseWebpackConfig, {
+  output: {
+    publicPath: './',
+  },
   plugins: [
-    new CleanWebpackPlugin(path.resolve(__dirname, './dist'),{
+    new CleanWebpackPlugin(path.resolve(__dirname, './dist'), {
       root: path.resolve(__dirname, './'),
       verbose: true
     }),
     new HtmlWebpackPlugin({
       template: './index.html',
-      filename:'index.html',
-      chunks:['main'],
-      inject:'body',
+      filename: 'index.html',
+      chunks: ['main'],
+      inject: 'body',
       minify: {
         removeComments: false,
         collapseWhitespace: false,
@@ -31,5 +32,7 @@ module.exports = merge(baseWebpackConfig,{
         ignore: ['.*']
       }
     ])
-  ]
+  ],
+  mode: 'development', // 'production'
+  devtool: '#source-map',
 })

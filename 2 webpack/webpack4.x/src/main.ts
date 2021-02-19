@@ -28,15 +28,22 @@ for (let s of strings) {
     console.log(`"${ s }" - ${ validators[name].isAcceptable(s) ? "matches" : "does not match" } ${ name }`);
   }
 }*!/*/
-import util from './util'
+/*import util from './util'
 
-console.log(util('123', '123'))
+console.log(util('123', '123'))*/
 
-/*
+
+import message from './message.js'
+
+console.log(message)
+
 setTimeout(() => {
-  import(/!* webpackChunkName: "jquery" *!/'./jquery.js').then(({default: $}) => {
+  import(
+    /* webpackChunkName: "util" */
+    './util.js'
+    ).then(({default: $}) => {
     console.log($)
   }).catch(error => {
     console.log(error)
   });
-}, 1000)*/
+}, 1000)

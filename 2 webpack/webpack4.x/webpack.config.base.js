@@ -14,9 +14,9 @@ module.exports = {
   // 出口配置
   output: {
     path: __dirname + '/dist',
-    publicPath: './',
-    filename: '[name].js', // 入口文件打包出来的文件名
-    chunkFilename: '[name].[id].[hash:7].bundle.js', // 动态加载模块打包出来的文件名
+    publicPath: '/',
+    filename: '[name].[hash:7].js', // 入口文件打包出来的文件名
+    chunkFilename: '[name].[hash:7].bundle.js', // 动态加载模块打包出来的文件名
   },
   // 模块（如何处理项目中的不同类型的模块）
   module: {
