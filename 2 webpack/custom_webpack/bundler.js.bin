@@ -1,0 +1,117 @@
+const fs = require('fs');
+const path = require('path');
+const babylon = require('@babel/parser');
+const traverse = require('@babel/traverse').default;
+const babel = require('@babel/core');
+
+let ID = 0;
+
+function createAsset (filename) {
+  const content = fs.readFileSync(filename, 'utf-8');
+
+  const ast = babylon.parse(content, {
+    sourceType: "module"
+  })
+
+  const dependencies = [];
+
+  traverse(ast, {
+    ImportDeclaration: ({node}) => {
+      dependencies.push(node.source.value)
+    }
+  })
+
+  const id = ID++;
+
+  const {code} = babel.transformFromAstSync(ast, null, {
+    presets: ["@babel/preset-env"]
+  })
+
+  console.log(code)
+
+  return {
+    id,
+    filename,
+    dependencies,
+    code
+  }
+}
+
+function createGraph (entry) {
+  const mainAsset = createAsset(entry)
+  // console.log(mainAsset)
+
+  const queue = [mainAsset];
+
+  for (let i = 0; i < queue.length; i++) {
+    let asset = queue[i];
+    let {dependencies, filename} = asset;
+    console.log(filename, dependencies)
+
+    asset.mapping = {}
+
+    const dirname = path.dirname(filename)
+
+    dependencies.forEach((relativePath, idx) => {
+      const absolutePath = path.join(dirname, relativePath)
+
+      const childAsset = createAsset(absolutePath);
+
+      asset.mapping[relativePath] = childAsset.id;
+
+      queue.push(childAsset)
+    })
+  }
+
+  return queue;
+}
+
+function boundle (graph) {
+  let modules = ``
+
+  graph.forEach(({filename, code, id, mapping}) => {
+    modules += `
+  '${id}': [
+    function (module, exports, require) {
+      ${code}
+    },
+    ${JSON.stringify(mapping)}
+  ],`
+  })
+
+  const result = `(function (modules) {
+  function require (moduleId) {
+    const [fn, mapping] = modules[moduleId]
+
+    const module = {
+      exports: {}
+    }
+
+    function localRequire (relativePpath) {
+      return require(mapping[relativePpath])
+    }
+
+    fn.call(module.exports, module, module.exports, localRequire);
+    
+    return module.exports
+  }
+
+  require(0)
+
+})({${modules}
+});`
+
+  return result;
+}
+
+let graph = createGraph('./src/main.js')
+
+let result = boundle(graph);
+
+fs.writeFile('./test/output.js', result, err => {
+  if (err) {
+    console.error(err)
+    return
+  }
+})
+

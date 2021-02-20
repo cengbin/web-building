@@ -1,0 +1,101 @@
+const fs = require('fs');
+const path = require('path');
+const babylon = require('@babel/parser');
+const traverse = require('@babel/traverse').default;
+const babel = require('@babel/core');
+
+function createAsset (filename) {
+  const content = fs.readFileSync(filename, 'utf-8');
+
+  const ast = babylon.parse(content, {
+    sourceType: "module"
+  })
+
+  const dependencies = [];
+
+  traverse(ast, {
+    ImportDeclaration: ({node}) => {
+      dependencies.push(node.source.value)
+    }
+  })
+
+  const {code} = babel.transformFromAstSync(ast, null, {
+    presets: ["@babel/preset-env"]
+  })
+
+  return {
+    filename,
+    dependencies,
+    code
+  }
+}
+
+function createGraph (entry) {
+  const mainAsset = createAsset(entry)
+
+  const queue = [mainAsset];
+
+  for (let i = 0; i < queue.length; i++) {
+    let asset = queue[i];
+    let {dependencies, filename, code} = asset;
+    console.log(filename, dependencies)
+
+    const dirname = path.dirname(filename)
+
+    dependencies.forEach((dependRelativePath, idx) => {
+      const absolutePath = path.join(dirname, dependRelativePath)
+
+      const childAsset = createAsset(absolutePath);
+
+      asset.code = code.replace(dependRelativePath, absolutePath)
+
+      queue.push(childAsset)
+    })
+  }
+
+  return queue;
+}
+
+function bundle (graph) {
+  let modules = ``
+
+  graph.forEach(({filename, code, id, mapping}) => {
+    modules += `
+  '${filename}': function (module, exports, require) {
+    ${code}
+  },`
+  })
+
+  const result = `(function (modules) {
+  function require (moduleId) {
+    const factory = modules[moduleId]
+
+    const module = {
+      exports: {}
+    }
+
+    factory.call(module.exports, module, module.exports, require);
+    
+    return module.exports
+  }
+
+  require('${entry}')
+})({${modules}
+});`
+
+  return result;
+}
+
+const entry = 'src/main.js';
+
+const graph = createGraph(entry);
+
+const result = bundle(graph);
+
+fs.writeFile('./test/bundle.js', result, err => {
+  if (err) {
+    console.error(err)
+    return
+  }
+})
+
