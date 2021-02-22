@@ -19,4 +19,4 @@
 
 [https://github.com/mengsixing/diy-webpack](https://github.com/mengsixing/diy-webpack) 手写webpack模块解析器
 
-[https://www.youtube.com/watch?v=Gc9-7PBqOC8](https://www.youtube.com/watch?v=Gc9-7PBqOC8) 老外分享视频链接
+[https://www.youtube.com/watch?v=Gc9-7PBqOC8](https://www.youtube.com/watch?v=Gc9-7PBqOC8) 实时创建一个简单打包工具(老外分享视频)

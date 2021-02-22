@@ -1,0 +1,15 @@
+{
+  "name": "webpack5.x",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.23.0"
+  },
+  "dependencies": {}
+}
