@@ -37,7 +37,7 @@ function createGraph (entry) {
 
   for (let i = 0; i < queue.length; i++) {
     let asset = queue[i];
-    let {dependencies, filename, code} = asset;
+    let {dependencies, filename} = asset;
     console.log(filename, dependencies)
 
     const dirname = path.dirname(filename)
@@ -45,9 +45,11 @@ function createGraph (entry) {
     dependencies.forEach((dependRelativePath, idx) => {
       const absolutePath = path.join(dirname, dependRelativePath)
 
-      const childAsset = createAsset(absolutePath);
+      asset.code = asset.code.replace(dependRelativePath, absolutePath)
 
-      asset.code = code.replace(dependRelativePath, absolutePath)
+      if (queue.find(ele => ele.filename === absolutePath)) return;
+
+      const childAsset = createAsset(absolutePath);
 
       queue.push(childAsset)
     })
@@ -67,19 +69,27 @@ function bundle (graph) {
   })
 
   const result = `(function (modules) {
-  function require (moduleId) {
-    const factory = modules[moduleId]
+  var installedModules = {};
 
-    const module = {
-      exports: {}
+  function require (moduleId) {
+
+    if (installedModules[moduleId]) {
+      return installedModules[moduleId].exports;
     }
 
+    var module = installedModules[moduleId] = {
+      i: moduleId,
+      exports: {}
+    };
+
+    var factory = modules[moduleId];
+
     factory.call(module.exports, module, module.exports, require);
-    
-    return module.exports
+
+    return module.exports;
   }
 
-  require('${entry}')
+  require('${entry}');
 })({${modules}
 });`
 
@@ -92,7 +102,7 @@ const graph = createGraph(entry);
 
 const result = bundle(graph);
 
-fs.writeFile('./test/bundle.js', result, err => {
+fs.writeFile('./build/bundle.js', result, err => {
   if (err) {
     console.error(err)
     return
