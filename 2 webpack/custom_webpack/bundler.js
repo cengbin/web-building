@@ -1,3 +1,4 @@
+const webpackConfig = require('./mywebpack.config.js')
 const fs = require('fs');
 const path = require('path');
 const babylon = require('@babel/parser');
@@ -96,16 +97,19 @@ function bundle (graph) {
   return result;
 }
 
-const entry = 'src/main.js';
+const entry = webpackConfig.entry;
+
+const output = webpackConfig.output.path + webpackConfig.output.filename
 
 const graph = createGraph(entry);
 
 const result = bundle(graph);
 
-fs.writeFile('./build/bundle.js', result, err => {
+fs.writeFile(output, result, err => {
   if (err) {
     console.error(err)
     return
   }
 })
+
 

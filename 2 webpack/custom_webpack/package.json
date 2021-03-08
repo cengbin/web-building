@@ -7,7 +7,7 @@
     "example": "example"
   },
   "scripts": {
-
+    "mywebpack": "node bundler.js"
   },
   "author": "",
   "license": "ISC",
