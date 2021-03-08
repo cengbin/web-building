@@ -71,6 +71,9 @@ module.exports = {
   },
   // 插件（用于以各种方式自定义 webpack 构建过程）
   plugins: [
+    // ProgressPlugin 用于自定义编译过程中的进度报告
+    new webpack.ProgressPlugin(),
+
     new HappyPack({
       id: 'happybabel',
       loaders: ['babel-loader?cacheDirectory=true'],
@@ -78,9 +81,11 @@ module.exports = {
       //允许 HappyPack 输出日志
       verbose: true
     }),
+
     new webpack.DllReferencePlugin({
       context: __dirname,
-      manifest: require('./static/vendor-manifest.json') //此即打包出来的json文件
+      //此即打包出来的json文件
+      manifest: require('./static/vendor-manifest.json')
     })
   ],
   // 解析（设置模块如何被解析）
@@ -91,9 +96,7 @@ module.exports = {
     }
   },
   // 外部扩展
-  externals: {
-
-  },
+  externals: {},
   // 性能
   performance: {
     hints: false
