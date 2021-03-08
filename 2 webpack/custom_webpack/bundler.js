@@ -1,4 +1,4 @@
-const webpackConfig = require('./mywebpack.config.js');
+const configuration = require('./mywebpack.config.js');
 const fs = require('fs');
 const path = require('path');
 const babylon = require('@babel/parser');
@@ -97,9 +97,9 @@ function bundle (graph) {
   return result;
 }
 
-const entry = webpackConfig.entry;
+const entry = configuration.entry;
 
-const output = webpackConfig.output.path + webpackConfig.output.filename
+const output = configuration.output.path + configuration.output.filename
 
 const graph = createGraph(entry);
 
