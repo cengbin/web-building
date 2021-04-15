@@ -1,0 +1,11 @@
+{
+  "name": "rollup2.x",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "build": "rollup --config rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
