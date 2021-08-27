@@ -51,12 +51,13 @@ module.exports = {
   plugins: [],
   // add your custom rules here
   rules: {
+  	 // allow debugger during development 开发期间允许使用debugger
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // allow async-await
     'generator-star-spacing': 'off',
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-useless-constructor':'off',
-    "no-new": "off"
+    "no-new": "off",
+    "vue/no-use-v-if-with-v-for": "off"
   },
   globals: {
     'Phaser': true,
