@@ -1,4 +1,4 @@
-const configuration = require('./mywebpack.config.js');
+const configuration = require('./pack.config.js');
 const fs = require('fs');
 const path = require('path');
 const babylon = require('@babel/parser');
