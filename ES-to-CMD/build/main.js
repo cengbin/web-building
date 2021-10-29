@@ -4,4 +4,5 @@ define('build/main' ,function (require, exports, module) {
 var _message = require('build/message');
 
 console.log(_message.message);
+document.write(_message.message);
 })

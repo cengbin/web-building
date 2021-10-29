@@ -7,8 +7,7 @@
     "example": "example"
   },
   "scripts": {
-    "build:webpack": "node bundler.js",
-    "build:cmd": "node bundler2.js"
+    "build:pack": "node bundler.js"
   },
   "author": "",
   "license": "ISC",

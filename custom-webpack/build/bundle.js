@@ -28,7 +28,8 @@ var _message = _interopRequireDefault(require("src/message.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_message.default);
+var msg = _message.default;
+console.log(msg);
   },
   'src/message.js': function (module, exports, require) {
     "use strict";
@@ -43,8 +44,6 @@ var _name = require("src/name.js");
 var _math = _interopRequireDefault(require("src/math.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-console.log('message模块调用plus(2,2)=', (0, _math.default)(2, 2));
 
 var _default = "hello ".concat(_name.nikename);
 
@@ -62,8 +61,7 @@ var _math = _interopRequireDefault(require("src/math.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log('name模块调用plus(3,3)=', (0, _math.default)(3, 3));
-var nikename = 'A Bin';
+var nikename = '曾彬';
 exports.nikename = nikename;
   },
   'src/math.js': function (module, exports, require) {
@@ -78,4 +76,5 @@ function _default(a, b) {
   return a + b;
 }
   },
-});
+  }
+);

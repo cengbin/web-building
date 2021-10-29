@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/util.js"],"names":["plus","a","b"],"mappings":";;;;;;;;;;AAAA;AAAA;AAAe,SAASA,IAAT,CAAeC,CAAf,EAAkBC,CAAlB,EAAqB;AAClC,SAAOD,IAAIC,CAAX;AACD,C","file":"0.ccc5bf1.bundle.js","sourcesContent":["export default function plus (a, b) {\n  return a + b\n}\n"],"sourceRoot":""}

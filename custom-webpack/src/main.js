@@ -1,3 +1,5 @@
 import message from './message.js'
 
-console.log(message)
+let msg = message;
+
+console.log(msg)
