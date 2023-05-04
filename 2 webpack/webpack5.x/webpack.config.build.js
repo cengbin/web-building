@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 module.exports = {
   mode: 'production',
   entry: {
-    index: './src/main.ts',
+    index: './src/main.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
