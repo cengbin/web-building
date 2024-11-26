@@ -35,9 +35,9 @@ module.exports = {
     extensions: ['.ts', '.js', '.json']
   },
   devServer: {
+    port: 9000, // 服务端口号
+    compress: true, // 启动 gzip 压缩
     static: "./",
-    compress: true,
-    port: 9000,
-    hot: true
+    liveReload: false // 实时刷新页面
   },
 };

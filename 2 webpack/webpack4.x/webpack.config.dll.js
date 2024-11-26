@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'static'),
     filename: '[name].dll.js',
-    library: '[name]_library'
+    library: '_dll_library_[name]'
   },
   plugins: [
     new webpack.DllPlugin({

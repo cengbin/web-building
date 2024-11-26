@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HappyPack = require('happypack')
 
-function resolve (to) {
+function resolve(to) {
   return path.resolve(__dirname, to)
 }
 
@@ -16,7 +16,7 @@ module.exports = {
     path: __dirname + '/dist',
     publicPath: '/',
     filename: '[name].[hash:7].js', // 入口文件打包出来的文件名
-    chunkFilename: '[name].[hash:7].bundle.js', // 动态加载模块打包出来的文件名
+    // chunkFilename: '[name].[hash:7].bundle.js', // 动态加载模块打包出来的文件名
   },
   // 模块（如何处理项目中的不同类型的模块）
   module: {
@@ -74,8 +74,11 @@ module.exports = {
     // ProgressPlugin 用于自定义编译过程中的进度报告
     new webpack.ProgressPlugin(),
 
+    // happPack 开启多进程打包
     new HappyPack({
+      // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
       id: 'happybabel',
+      // 如何处理 .js 文件，用法和 Loader 配置中一样
       loaders: ['babel-loader?cacheDirectory=true'],
       threads: 4,
       //允许 HappyPack 输出日志
@@ -86,7 +89,10 @@ module.exports = {
       context: __dirname,
       //此即打包出来的json文件
       manifest: require('./static/vendor-manifest.json')
-    })
+    }),
+
+    // 忽略 moment 下的 /locale 目录
+    new webpack.IgnorePlugin(/\.\/locale/, /moment/),
   ],
   // 解析（设置模块如何被解析）
   resolve: {
