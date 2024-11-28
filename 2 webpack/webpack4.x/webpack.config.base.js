@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const HappyPack = require('happypack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const {srcPath, distPath} = require('./paths')
 
 function resolve(to) {
   return path.resolve(__dirname, to)
@@ -13,10 +15,10 @@ module.exports = {
   },
   // 出口配置
   output: {
-    path: __dirname + '/dist',
+    path: distPath,
     publicPath: '/',
-    filename: '[name].[hash:7].js', // 入口文件打包出来的文件名
-    // chunkFilename: '[name].[hash:7].bundle.js', // 动态加载模块打包出来的文件名
+    filename: 'bundle.[name].[hash:7].js', // 入口文件打包出来的文件名
+    chunkFilename: 'chunk.[name].[hash:7].js', // 动态加载模块打包出来的文件名
   },
   // 模块（如何处理项目中的不同类型的模块）
   module: {
@@ -46,15 +48,20 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        // loader 的执行顺序是：从后往前（知识点）
         use: [
-          {
-            loader: 'style-loader',
-            options: {
-              singleton: true
-            }
-          },
+          // {
+          //   loader: 'style-loader',
+          //   options: {
+          //     singleton: true
+          //   }
+          // },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader'
           }
         ]
       },
@@ -93,6 +100,11 @@ module.exports = {
 
     // 忽略 moment 下的 /locale 目录
     new webpack.IgnorePlugin(/\.\/locale/, /moment/),
+
+    // 抽离样式到 css 文件
+    new MiniCssExtractPlugin({
+      filename: 'css/style.[hash:7].css'
+    })
   ],
   // 解析（设置模块如何被解析）
   resolve: {

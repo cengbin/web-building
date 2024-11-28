@@ -6,6 +6,9 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.config.base')
 
 module.exports = merge(baseWebpackConfig, {
+  // mode: 'development',
+  mode: 'production',
+  devtool: '#source-map',
   output: {
     publicPath: './',
   },
@@ -33,6 +36,4 @@ module.exports = merge(baseWebpackConfig, {
       }
     ])
   ],
-  mode: 'development', // 'production'
-  devtool: '#source-map',
 })

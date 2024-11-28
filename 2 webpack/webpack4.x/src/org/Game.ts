@@ -15,5 +15,8 @@ export default class Game extends PIXI.Application {
         react.drawRect(0, 0, 100, 100)
         react.endFill()
         this.stage.addChild(react)
+
+        var img = PIXI.Sprite.from('./static/assets/flowerTop.png');
+        this.stage.addChild(img);
     }
 }

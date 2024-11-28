@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/org/message.js"],"names":[],"mappings":"gGAEe","file":"chunk.1.94ff6be.js","sourcesContent":["import { nikename } from './name.js'\n\nexport default `hello ${nikename}`\n"],"sourceRoot":""}
